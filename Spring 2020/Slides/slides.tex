@@ -1,0 +1,96 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{mathtools}
+
+
+%Information to be included in the title page:
+\title{Presentation for the Quantum Seminar}
+\author{Jos\'e Manuel Rodr\'iguez Caballero}
+\institute{University of Tartu}
+\date{Spring 2020}
+
+
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Subject}
+My presentation is about the paper\footnote{I will not repeat the notation from the paper in this presentation. If any listener is interested in clarification, either read the paper or ask me.}:
+$\newline$
+
+\begin{quote}
+Bouman, Niek J., and Serge Fehr. "Sampling in a quantum population, and applications." Annual Cryptology Conference. Springer, Berlin, Heidelberg, 2010.
+\end{quote}
+
+My presentation will not follow the original approach of the authors in order to show that I am able to do more than merely repeat what they wrote. Also, I would like to express my personal way of looking at this subject.
+
+\end{frame}
+
+\begin{frame}{Contributions of the paper}
+\begin{flushleft}
+
+\textbf{Contribution 1.} The authors introduce a framework in for \textit{sampling quantum population}.
+$\newline$
+
+\textbf{Contribution 2.} This framework is used in a new proof of the security of the \emph{quantum key distribution protocol BB84} (entanglement-based version).
+$\newline$
+
+\textbf{Contribution 3.} This framework is used in a new proof of the security of the \emph{quantum oblivious-transfer from bit-commitment}.
+
+\end{flushleft}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\Large{\textbf{Presentation of Contribution 1.} }\normalsize
+$\newline$
+\end{center}
+
+\begin{flushleft}
+The authors introduce a framework in for \textit{sampling quantum population}.
+\end{flushleft}
+\end{frame}
+
+\begin{frame}{Classical sampling strategy}
+
+Let $\mathcal{A}$ be a finite alphabet. A \emph{classical sampling strategy} is a triplet $\Psi = \left(P_T, P_S, f\right)$, where $P_T$ is a distribution over $\mathcal{T} := 2^{[n]}$, $P_S$ is a distribution over a finite set $\mathcal{S}$, $P_T$ and $P_S$ are assumed to be independent, and $f$ is a function of type\footnote{Here $\mathcal{A}^{\ast}$ is the free monoid over $\mathcal{A}$.}
+\begin{eqnarray*}
+& & \mathcal{T} \times  \mathcal{S} \times \mathcal{A}^{\ast}  \longrightarrow \mathbb{R}  \\
+& & (t, s, q) \mapsto f_{t, s}(q)
+\end{eqnarray*}
+satisfying $f_{t,s}(q) = 0$ whenever $|t| \neq |q|$.
+\end{frame}
+
+
+\begin{frame}
+\begin{center}
+\Large{\textbf{Presentation of Contribution 2.} }\normalsize
+$\newline$
+\end{center}
+
+\begin{flushleft}
+This framework is used in a new proof of the security of the \emph{quantum key distribution protocol BB84} (entanglement-based version).
+\end{flushleft}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\Large{\textbf{Presentation of Contribution 3.} }\normalsize
+$\newline$
+\end{center}
+
+\begin{flushleft}
+This framework is used in a new proof of the security of the \emph{quantum oblivious-transfer from bit-commitment}.
+\end{flushleft}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\Large{\textbf{End of my presentation} }
+\end{center}
+\end{frame}
+
+\end{document}
