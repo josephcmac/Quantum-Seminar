@@ -62,8 +62,8 @@ $$
 \end{frame}
 
 
-\begin{frame}{$\delta$-estimation} 
-Let $\delta$ be a positive real number. We define
+\begin{frame}{Set of classical $\delta$-close states} 
+Let $\delta$ be a positive real number. We define the  \emph{set of classical $\delta$-close states} as
 $$
 B_{t,s}^{\delta} := \left\{ q\in\mathcal{A}^n: \quad \left| \omega\left(q_{\overline{t}}\right) - f\left(t, q_t, s\right) \right| <  \delta \right\},
 $$
@@ -71,21 +71,21 @@ where $\omega(q)$ is the Hamming density of $q$, i.e., the Hamming weight of $q$
 
 \end{frame}
 
-\begin{frame}{$\delta$-estimation random variable} 
+\begin{frame}{Random set of classical $\delta$-close states} 
 Let $T$ and $S$ be random variables associated to the probability distributions $P_T$ and $P_S$ respectively. Notice that the pair $(T, S)$ is a random variable. Furthermore, the evaluation of $(t,s) \mapsto B_{t,s}^{\delta}$ at $(T,S)$ determines a random variable, denoted $B_{T,S}^{\delta}$ and associated to the probability distribution
 $$
 \textrm{Pr}\left[ B_{T,S}^{\delta} \in \Gamma \right] := \textrm{Pr}\left[ (T, S) \in \left\{(t,s)\in\mathcal{T}\times\mathcal{S} :\quad B_{t,s}^{\delta} \in \Gamma\right\} \right]
 $$
-where $\Gamma\subset 2^{\mathcal{A}^n}$.
+where $\Gamma\subset 2^{\mathcal{A}^n}$. The call $B_{T,S}^{\delta}$ the \emph{random set of classical $\delta$-close states}.
 \end{frame}
 
 
-\begin{frame}{$\delta$-error estimation} 
+\begin{frame}{Classical $\delta$-error} 
 
-The $\delta$-error estimation is defined as
-\begin{eqnarray*}
-\varepsilon^{\delta} &:=& \max_{q\in\mathcal{A}^n} \textrm{Pr}\left[B_{T,S}^{\delta} \in \left\{X\in 2^{\mathcal{A}^n}: \quad q \not\in X \right\} \right].
-\end{eqnarray*}
+The \emph{classical $\delta$-error} is defined as\footnote{Notice that the expression inside the bracket is equivalent to $q \not\in B_{T,S}^{\delta}$.}
+$$
+\varepsilon_c^{\delta} :=\max_{q\in\mathcal{A}^n} \textrm{Pr}\left[ B_{T,S}^{\delta} \in \left\{X\in 2^{\mathcal{A}^n}: \quad q \not\in X \right\}\right].
+$$
 
 \end{frame}
 
