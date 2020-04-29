@@ -18,14 +18,14 @@
 \frame{\titlepage}
 
 \begin{frame}{Subject}
-My presentation is about the paper\footnote{I will not repeat the notation from the paper in this presentation. If any listener is interested in clarification, either read the paper or ask me.}:
+My presentation is about the paper\footnote{I will not repeat the notation from the paper in this presentation. If someone needs a clarification, either read the paper or ask me during the presentation.}:
 $\newline$
 
 \begin{quote}
 Bouman, Niek J., and Serge Fehr. "Sampling in a quantum population, and applications." Annual Cryptology Conference. Springer, Berlin, Heidelberg, 2010.
 \end{quote}
 
-My presentation may differ in some points with respect of the presentation given by the authors, because sometimes I prefer to use my own interpretation of the results rather than to repeat the authors.
+My presentation may differ in some points with respect of the presentation given by the authors.
 
 \end{frame}
 
@@ -55,13 +55,28 @@ The authors introduce a framework in for \textit{sampling quantum population}.
 \end{frame}
 
 \begin{frame}{Classical sampling strategy}
+Let $n$ be a positive integer, $\mathcal{A}$ be a finite alphabet and $\mathcal{S}$ be a finite set of seeds\footnote{Both ``alphabet" and ``seeds" are informal labels notions here in order to show the motivation for introducing these sets.}. A \emph{classical sampling strategy} is a triplet $\left( P_T, P_S, f \right)$, where $P_T$ is a probability distribution over $\mathcal{T} := 2^{[n]}$, $P_S$ is a probability distribution over $\mathcal{S}$ and $f$ is a real-valued function defined on the set
+$$
+\left\{ (t, q, s)\in \mathcal{T}\times \mathcal{A}^{\ast} \times \mathcal{S}: \quad |t| = |q| \right\}.
+$$
+\end{frame}
 
-Let $\mathcal{A}$ be a finite alphabet. A \emph{classical sampling strategy} is a triplet $\Psi = \left(P_T, P_S, f\right)$, where $P_T$ is a distribution over $\mathcal{T} := 2^{[n]}$, $P_S$ is a distribution over a finite set $\mathcal{S}$, $P_T$ and $P_S$ are assumed to be independent, and $f$ is a function of type\footnote{Here $\mathcal{A}^{\ast}$ is the free monoid over $\mathcal{A}$.}
-\begin{eqnarray*}
-& & \mathcal{T} \times  \mathcal{S} \times \mathcal{A}^{\ast}  \longrightarrow \mathbb{R}  \\
-& & (t, s, q) \mapsto f_{t, s}(q)
-\end{eqnarray*}
-satisfying $f_{t,s}(q) = 0$ whenever $|t| \neq |q|$.
+
+\begin{frame}{$\delta$-estimation} 
+Let $\delta$ be a positive real number. We define
+
+$$
+B_{t,s}^{\delta} := \left\{ q\in\mathcal{A}^n: \quad \left| \omega\left(q_{\overline{t}}\right) - f\left(t, q_t, s\right) \right| <  \delta \right\}.
+$$
+\end{frame}
+
+\begin{frame}{$\delta$-estimation random variable} 
+
+Let $T$ and $S$ be random variables associated to the probability distributions $P_T$ and $P_S$ respectively. Notice that the pair $(T, S)$ is a random variable. Furthermore, the evaluation of $(t,s) \mapsto B_{t,s}^{\delta}$ at $(T,S)$ determines a random variable, denoted $B_{T,S}^{\delta}$ and associated to the probability distribution
+$$
+\textrm{Pr}\left[ B_{T,S}^{\delta} \in X \right] := \textrm{Pr}\left[ (T, S) \in \left\{(t,s)\in\mathcal{T}\times\mathcal{S} :\quad B_{t,s}^{\delta} \in X\right\} \right]
+$$
+where $X\subset 2^{\mathcal{A}^n}$.
 \end{frame}
 
 
