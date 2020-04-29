@@ -54,11 +54,17 @@ The authors introduce a framework in for \textit{sampling quantum population}.
 \end{flushleft}
 \end{frame}
 
+\begin{frame}{Classical and quantum sampling strategies}
+The quantum sampling strategy is defined in terms of the classical sampling strategy. The ``quantum error bound" is bounded by the square root of the ``classical error bound", thus reducing the quantum information-theoretical problem to a well-studied probabilistic problem.
+\end{frame}
+
 \begin{frame}{Classical sampling strategy}
-Let $n$ be a positive integer, $\mathcal{A}$ be a finite alphabet and $\mathcal{S}$ be a finite set of seeds\footnote{Both ``alphabet" and ``seeds" are informal labels notions here in order to show the motivation for introducing these sets.}. A \emph{classical sampling strategy} is a triplet $\left( P_T, P_S, f \right)$, where $P_T$ is a probability distribution over $\mathcal{T} := 2^{[n]}$, $P_S$ is a probability distribution over $\mathcal{S}$ and $f$ is a real-valued function defined on the finite set
+Let $n$ be a positive integer, $\mathcal{A}$ be a finite alphabet and $\mathcal{S}$ be a finite set of seeds. Assume that $|\mathcal{A}| \geq 2$ and $|\mathcal{S}| \geq 1$. A \emph{classical sampling strategy} is a triplet $\left( P_T, P_S, f \right)$, where $P_T$ is a probability distribution over $\mathcal{T} := 2^{[n]}$, $P_S$ is a probability distribution over $\mathcal{S}$ and $f$ is a real-valued function defined on the finite set
 $$
 \left\{ (t, q, s)\in \mathcal{T}\times \mathcal{A}^{\ast} \times \mathcal{S}: \quad |t| = |q| \right\}.
 $$
+$\newline$
+Remark. The number of degrees of freedom of a sampling strategy is finite and it is asymptotically equivalent to $|\mathcal{S}|^2 \, \left( 2| \mathcal{A} | + 2 \right)^n$ as $n\to\infty$.
 \end{frame}
 
 
@@ -68,7 +74,9 @@ $$
 B_{t,s}^{\delta} := \left\{ q\in\mathcal{A}^n: \quad \left| \omega\left(q_{\overline{t}}\right) - f\left(t, q_t, s\right) \right| <  \delta \right\},
 $$
 where $\omega(q)$ is the Hamming density of $q$, i.e., the Hamming weight of $q$ divided by the length of $q$.
+$\newline$
 
+Heuristic idea: for $\delta$, $t$ and $s$ fixed, the larger the set $B_{t,s}^{\delta}$ is, the better the function $f$ is for estimation (with respect to $t$ and $s$).
 \end{frame}
 
 \begin{frame}{Random set of classical $\delta$-close states} 
@@ -77,16 +85,20 @@ $$
 \textrm{Pr}\left[ B_{T,S}^{\delta} \in \Gamma \right] := \textrm{Pr}\left[ (T, S) \in \left\{(t,s)\in\mathcal{T}\times\mathcal{S} :\quad B_{t,s}^{\delta} \in \Gamma\right\} \right]
 $$
 where $\Gamma\subset 2^{\mathcal{A}^n}$. The call $B_{T,S}^{\delta}$ the \emph{random set of classical $\delta$-close states}.
+$\newline$
+
+Heuristic idea: for $\delta$ fixed, the larger the random set $B_{T,S}^{\delta}$ is, the better the strategy is for estimation.
 \end{frame}
 
 
 \begin{frame}{Classical $\delta$-error} 
 
-The \emph{classical $\delta$-error} is defined as\footnote{Notice that the expression inside the bracket is equivalent to $q \not\in B_{T,S}^{\delta}$.}
+The \emph{classical $\delta$-error} is defined as
 $$
 \varepsilon_c^{\delta} :=\max_{q\in\mathcal{A}^n} \textrm{Pr}\left[ B_{T,S}^{\delta} \in \left\{X\in 2^{\mathcal{A}^n}: \quad q \not\in X \right\}\right].
 $$
 
+Heuristic idea: $\varepsilon_c^{\delta}$ measures the probability that the sampling strategy fails in the worst-case scenario\footnote{Notice that the expression inside the bracket is equivalent to $q \not\in B_{T,S}^{\delta}$.}.
 \end{frame}
 
 
