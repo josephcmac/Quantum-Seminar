@@ -55,7 +55,7 @@ The authors introduce a framework in for \textit{sampling quantum population}.
 \end{frame}
 
 \begin{frame}{Classical sampling strategy}
-Let $n$ be a positive integer, $\mathcal{A}$ be a finite alphabet and $\mathcal{S}$ be a finite set of seeds\footnote{Both ``alphabet" and ``seeds" are informal labels notions here in order to show the motivation for introducing these sets.}. A \emph{classical sampling strategy} is a triplet $\left( P_T, P_S, f \right)$, where $P_T$ is a probability distribution over $\mathcal{T} := 2^{[n]}$, $P_S$ is a probability distribution over $\mathcal{S}$ and $f$ is a real-valued function defined on the set
+Let $n$ be a positive integer, $\mathcal{A}$ be a finite alphabet and $\mathcal{S}$ be a finite set of seeds\footnote{Both ``alphabet" and ``seeds" are informal labels notions here in order to show the motivation for introducing these sets.}. A \emph{classical sampling strategy} is a triplet $\left( P_T, P_S, f \right)$, where $P_T$ is a probability distribution over $\mathcal{T} := 2^{[n]}$, $P_S$ is a probability distribution over $\mathcal{S}$ and $f$ is a real-valued function defined on the finite set
 $$
 \left\{ (t, q, s)\in \mathcal{T}\times \mathcal{A}^{\ast} \times \mathcal{S}: \quad |t| = |q| \right\}.
 $$
@@ -64,19 +64,29 @@ $$
 
 \begin{frame}{$\delta$-estimation} 
 Let $\delta$ be a positive real number. We define
+$$
+B_{t,s}^{\delta} := \left\{ q\in\mathcal{A}^n: \quad \left| \omega\left(q_{\overline{t}}\right) - f\left(t, q_t, s\right) \right| <  \delta \right\},
+$$
+where $\omega(q)$ is the Hamming density of $q$, i.e., the Hamming weight of $q$ divided by the length of $q$.
 
-$$
-B_{t,s}^{\delta} := \left\{ q\in\mathcal{A}^n: \quad \left| \omega\left(q_{\overline{t}}\right) - f\left(t, q_t, s\right) \right| <  \delta \right\}.
-$$
 \end{frame}
 
 \begin{frame}{$\delta$-estimation random variable} 
-
 Let $T$ and $S$ be random variables associated to the probability distributions $P_T$ and $P_S$ respectively. Notice that the pair $(T, S)$ is a random variable. Furthermore, the evaluation of $(t,s) \mapsto B_{t,s}^{\delta}$ at $(T,S)$ determines a random variable, denoted $B_{T,S}^{\delta}$ and associated to the probability distribution
 $$
-\textrm{Pr}\left[ B_{T,S}^{\delta} \in X \right] := \textrm{Pr}\left[ (T, S) \in \left\{(t,s)\in\mathcal{T}\times\mathcal{S} :\quad B_{t,s}^{\delta} \in X\right\} \right]
+\textrm{Pr}\left[ B_{T,S}^{\delta} \in \Gamma \right] := \textrm{Pr}\left[ (T, S) \in \left\{(t,s)\in\mathcal{T}\times\mathcal{S} :\quad B_{t,s}^{\delta} \in \Gamma\right\} \right]
 $$
-where $X\subset 2^{\mathcal{A}^n}$.
+where $\Gamma\subset 2^{\mathcal{A}^n}$.
+\end{frame}
+
+
+\begin{frame}{$\delta$-error estimation} 
+
+The $\delta$-error estimation is defined as
+\begin{eqnarray*}
+\varepsilon^{\delta} &:=& \max_{q\in\mathcal{A}^n} \textrm{Pr}\left[B_{T,S}^{\delta} \in \left\{X\in 2^{\mathcal{A}^n}: \quad q \not\in X \right\} \right].
+\end{eqnarray*}
+
 \end{frame}
 
 
