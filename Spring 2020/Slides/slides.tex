@@ -80,7 +80,7 @@ In the context of the paper, a \emph{classical population} is a finite word $q$ 
 
 
 \begin{frame}{Example of classical population} 
-The classical population could  be the population of the People's Republic of Wakanda\footnote{I am considering an idealized situation, in order to avoid all the complications of the a real-life scenario, e.g., fake data and heterogeneous properties of the population. In Wakanda everything will be as homogeneous as possible.} (each person corresponds to a position in the word $q$) and the alphabet could be $\mathcal{A} = \{0, 1\}$, where $0$ and $1$ stand for  uninfected and infected of COVID-19, respectively. In order to estimate how many people are infested with COVID-19, we will study a random sample of the population, which will be small in comparison to the size of the population. Finally, we will extrapolate the data from the sample to the whole population.
+The classical population could  be the population of the People's Republic of Wakanda\footnote{I am considering an idealized situation, in order to avoid all the complications of the a real-life scenario, e.g., fake data and heterogeneous properties of the population. In Wakanda everything will be as homogeneous as possible.} (each person corresponds to a position in the word $q$) and the alphabet could be $\mathcal{A} = \{0, 1\}$, where $0$ and $1$ stand for  uninfected and infected of COVID-19, respectively. In order to estimate how many people are infested with COVID-19, we will study a random sample of the population consisting of $k$ people, which will be small in comparison to the size of the population, i.e. $k$ is ``small" with respect to $n$. Finally, we will extrapolate the data from the sample to the whole population.
 \end{frame}
 
 \begin{frame}{How to estimate?} 
@@ -101,8 +101,15 @@ By definition, we \emph{estimate} that the relative Hamming weight of $q_{\overl
 \end{frame}
 
 \begin{frame}{Example of estimation} 
-Let's return to the example of the population of Wakanda, identified with the word $q$. We define $\mathcal{S} = \{\perp\}$, i.e., we do not use a random seed, here. So, $P_S$ is trivially the uniform distribution on $\mathcal{S}$. Now, let assume that $P_T$ is the uniform distribution on $\mathcal{T}$, i.e., $P_T(t) = \frac{1}{2^n} \left(\!\!\! \begin{array}{c} n \\ |t| \end{array} \!\!\!\right)$. Finally, define $f(t, q, s) := \omega(q)$.
-$\newline$
+Let's return to the example of the population of Wakanda, identified with the word $q$. We define $\mathcal{S} = \{\perp\}$, i.e., we do not use a random seed here. So, $P_S$ is trivially the uniform distribution on $\mathcal{S}$. Now, let assume that $P_T$ is the uniform distribution on subsets of size $k$ of $[n]$, i.e., 
+$$P_T(t) = \frac{1}{\left(\!\!\! \begin{array}{c} n \\ k \end{array} \!\!\!\right)}$$
+if $|t| = k$ and $P_T(t) = 0$ otherwise. Finally, define $$f(t, q, s) := \omega(q).$$ 
+
+This framework is known as \emph{random sampling without replacement}.
+
+\end{frame}
+
+\begin{frame}{Example of estimation (continuation)} 
 
 This sampling strategy is just a formalization of the heuristic approach assuming that the frequency of cases of COVID-19 in the whole population is the same as in our uniformly random sample. This is not necessarily the case in reality, e.g., people working in hospitals have a higher probability of getting infested than the remain of the population.
 \end{frame}
