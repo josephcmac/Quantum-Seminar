@@ -142,7 +142,7 @@ Heuristic idea: for $\delta$ fixed, the ``larger" the random set $B_{T,S}^{\delt
 In Wakanda example, $B_{T,S}^{\delta}$ is the random set of all possibilities (before choosing $t$ and $s$) in which the frequency of infection of COVID-19 in the sample is $\delta$-close to the frequency of infection in the remaining part of the population of Wakanda.
 \end{frame}
 
-\begin{frame}{Cl assical $\delta$-error} 
+\begin{frame}{Classical $\delta$-error} 
 
 The \emph{classical $\delta$-error} is defined as
 $$
@@ -154,6 +154,14 @@ Heuristic idea: $\varepsilon_c^{\delta}$ measures the probability that the sampl
 
 \begin{frame}{Example of classical $\delta$-error} 
 In Wakanda example, $\varepsilon_c^{\delta}$ is the largest probability, with respect to all possible populations, that the frequency of infection of the sample is not $\delta$-close to the frequency of infection of the remaining part of the population of Wakanda.
+$\newline$
+
+For $k \leq \frac{n}{2}$ (as it should be in practice), we have
+$$
+\varepsilon_c^{\delta} \leq 2 \exp\left( - \frac{\delta^2 k}{2} \right).
+$$
+
+Remark: As expected: a) as the size of the sample increases, the bound of the error $\varepsilon_c^{\delta}$ decrease; b) as the precision of the estimation increases, the bound of the error $\varepsilon_c^{\delta}$ increases.
 \end{frame}
 
 
