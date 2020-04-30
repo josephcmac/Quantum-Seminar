@@ -54,17 +54,46 @@ The authors introduce a framework in for \textit{sampling quantum population}.
 \end{flushleft}
 \end{frame}
 
-\begin{frame}{Classical and quantum sampling strategies}
-The quantum sampling strategy is defined in terms of the classical sampling strategy. The ``quantum error bound" is bounded by the square root of the ``classical error bound", thus reducing the quantum information-theoretical problem to a well-studied probabilistic problem.
+\begin{frame}{Overview of Contribution 1}
+
+The authors define a \emph{sampling and estimation strategy} (\emph{sampling strategy} for short). This strategy can be used in order to study both classical and quantum populations. The ``quantum error" is bounded by the square root of the ``classical error", thus reducing the quantum information-theoretical problem to a well-studied probabilistic problem.
 \end{frame}
 
-\begin{frame}{Classical sampling strategy}
-Let $n$ be a positive integer, $\mathcal{A}$ be a finite alphabet and $\mathcal{S}$ be a finite set of seeds. Assume that $|\mathcal{A}| \geq 2$ and $|\mathcal{S}| \geq 1$. A \emph{classical sampling strategy} is a triplet $\left( P_T, P_S, f \right)$, where $P_T$ is a probability distribution over $\mathcal{T} := 2^{[n]}$, $P_S$ is a probability distribution over $\mathcal{S}$ and $f$ is a real-valued function defined on the finite set
+\begin{frame}{Sampling strategy}
+Let $n$ be a positive integer, $\mathcal{A}$ be a finite alphabet and $\mathcal{S}$ be a finite set of seeds. Assume that $|\mathcal{A}| \geq 2$ and $|\mathcal{S}| \geq 1$. A \emph{sampling strategy} is a triplet $\left( P_T, P_S, f \right)$, where $P_T$ is a probability distribution over $\mathcal{T} := 2^{[n]}$, $P_S$ is a probability distribution over $\mathcal{S}$ and $f$ is a real-valued function defined on the finite set\footnote{The notation $\mathcal{A}^{\ast}$ is for the free monoid over $\mathcal{A}$.}
 $$
-\left\{ (t, q, s)\in \mathcal{T}\times \mathcal{A}^{\ast} \times \mathcal{S}: \quad |t| = |q| \right\}.
+\textrm{Dom}_f := \left\{ (t, q, s)\in \mathcal{T}\times \mathcal{A}^{\ast} \times \mathcal{S}: \quad |t| = |q| \right\}.
 $$
 $\newline$
 Remark. The number of degrees of freedom of a sampling strategy is finite and it is asymptotically equivalent to $|\mathcal{S}|^2 \, \left( 2| \mathcal{A} | + 2 \right)^n$ as $n\to\infty$.
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\Large{Classical populations}
+\end{center}
+\end{frame}
+
+\begin{frame}{What is a classical population?} 
+In the context of the paper, a \emph{classical population} is a finite word $q$ over the alphabet $\mathcal{A}$. The alphabet $\mathcal{A}$ contains a distinguished element, that we will denote by $0$. We are interested in estimating how many letters in $q$ are different from $0$, i.e., the Hamming weight of $q$. In order to simplify the presentation, we will use the relative hamming weight of $q$, denoted $\omega(q)$, which is the Hamming weight of $q$ divided by its length.
+\end{frame}
+
+\begin{frame}{How to estimate?} 
+Given a sampling strategy $\left(P_T, P_S, f \right)$ and a classical population $q = q_1 q_2 q_3 ... q_n \in \mathcal{A}^n$. We take a random pair $(t, s) \in \mathcal{T} \times \mathcal{S}$ (using the joint distribution of $P_T$ and $P_S$). Let
+$$
+\tau_1 < \tau_2 < ... < \tau_{k}
+$$
+be the elements of $t$ written in increasing order. Let
+$$
+\overline{\tau }_1 < \overline{\tau}_2 < .... < \overline{\tau}_{n-k}
+$$
+be the elements of $[n]\backslash t$ written in increasing order. We define
+$$
+q_t = q_{\tau_1} q_{\tau_2} ... q_{\tau_k}, \quad q_{\overline{t}} = q_{\overline{\tau}_1} q_{\overline{\tau}_2} ... q_{\overline{\tau}_{n-k}}.
+$$
+
+By definition, we \emph{estimate} that the relative Hamming weight of $q_{\overline{t}}$ is given by $f\left(t, q_t, s\right)$.
+
 \end{frame}
 
 
@@ -73,8 +102,6 @@ Let $\delta$ be a positive real number. We define the  \emph{set of classical $\
 $$
 B_{t,s}^{\delta} := \left\{ q\in\mathcal{A}^n: \quad \left| \omega\left(q_{\overline{t}}\right) - f\left(t, q_t, s\right) \right| <  \delta \right\},
 $$
-where $\omega(q)$ is the Hamming density of $q$, i.e., the Hamming weight of $q$ divided by the length of $q$.
-$\newline$
 
 Heuristic idea: for $\delta$, $t$ and $s$ fixed, the larger the set $B_{t,s}^{\delta}$ is, the better the function $f$ is for estimation (with respect to $t$ and $s$).
 \end{frame}
@@ -87,9 +114,8 @@ $$
 where $\Gamma\subset 2^{\mathcal{A}^n}$. The call $B_{T,S}^{\delta}$ the \emph{random set of classical $\delta$-close states}.
 $\newline$
 
-Heuristic idea: for $\delta$ fixed, the larger the random set $B_{T,S}^{\delta}$ is, the better the strategy is for estimation.
+Heuristic idea: for $\delta$ fixed, the ``larger" the random set $B_{T,S}^{\delta}$ is, the better the strategy is for estimation.
 \end{frame}
-
 
 \begin{frame}{Classical $\delta$-error} 
 
@@ -99,6 +125,12 @@ $$
 $$
 
 Heuristic idea: $\varepsilon_c^{\delta}$ measures the probability that the sampling strategy fails in the worst-case scenario\footnote{Notice that the expression inside the bracket is equivalent to $q \not\in B_{T,S}^{\delta}$.}.
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\Large{Quantum populations}
+\end{center}
 \end{frame}
 
 
