@@ -64,8 +64,6 @@ Let $n$ be a positive integer, $\mathcal{A}$ be a finite alphabet and $\mathcal{
 $$
 \textrm{Dom}_f := \left\{ (t, q, s)\in \mathcal{T}\times \mathcal{A}^{\ast} \times \mathcal{S}: \quad |t| = |q| \right\}.
 $$
-$\newline$
-Remark. The number of degrees of freedom of a sampling strategy is finite and it is asymptotically equivalent to $|\mathcal{S}|^2 \, \left( 2| \mathcal{A} | + 2 \right)^n$ as $n\to\infty$.
 \end{frame}
 
 \begin{frame}
@@ -78,12 +76,11 @@ Remark. The number of degrees of freedom of a sampling strategy is finite and it
 In the context of the paper, a \emph{classical population} is a finite word $q$ over the alphabet $\mathcal{A}$. The alphabet $\mathcal{A}$ contains a distinguished element, that we will denote by $0$. We are interested in estimating how many letters in $q$ are different from $0$, i.e., the Hamming weight of $q$. In order to simplify the presentation, we will use the relative hamming weight of $q$, denoted $\omega(q)$, which is the Hamming weight of $q$ divided by its length.
 \end{frame}
 
-
 \begin{frame}{Example of classical population} 
 The classical population could  be the population of the People's Republic of Wakanda\footnote{I am considering an idealized situation, in order to avoid all the complications of the a real-life scenario, e.g., fake data and heterogeneous properties of the population. In Wakanda everything will be as homogeneous as possible.} (each person corresponds to a position in the word $q$) and the alphabet could be $\mathcal{A} = \{0, 1\}$, where $0$ and $1$ stand for  uninfected and infected of COVID-19, respectively. In order to estimate how many people are infested with COVID-19, we will study a random sample of the population consisting of $k$ people, which will be small in comparison to the size of the population, i.e. $k$ is ``small" with respect to $n$. Finally, we will extrapolate the data from the sample to the whole population.
 \end{frame}
 
-\begin{frame}{How to estimate?} 
+\begin{frame}{How to estimate in a classical population?} 
 Given a sampling strategy $\left(P_T, P_S, f \right)$ and a classical population $q = q_1 q_2 q_3 ... q_n \in \mathcal{A}^n$. We take a random pair $(t, s) \in \mathcal{T} \times \mathcal{S}$ (using the joint distribution of $P_T$ and $P_S$). Let
 $$
 \tau_1 < \tau_2 < ... < \tau_{k}
@@ -100,7 +97,7 @@ $$
 By definition, we \emph{estimate} that the relative Hamming weight of $q_{\overline{t}}$ is given by $f\left(t, q_t, s\right)$.
 \end{frame}
 
-\begin{frame}{Example of estimation} 
+\begin{frame}{Example of estimation in a classical population} 
 Let's return to the example of the population of Wakanda, identified with the word $q$. We define $\mathcal{S} = \{\perp\}$, i.e., we do not use a random seed here. So, $P_S$ is trivially the uniform distribution on $\mathcal{S}$. Now, let assume that $P_T$ is the uniform distribution on subsets of size $k$ of $[n]$, i.e., 
 $$P_T(t) = \frac{1}{\left(\!\!\! \begin{array}{c} n \\ k \end{array} \!\!\!\right)}$$
 if $|t| = k$ and $P_T(t) = 0$ otherwise. Finally, define $$f(t, q, s) := \omega(q).$$ 
@@ -109,8 +106,7 @@ This framework is known as \emph{random sampling without replacement}.
 
 \end{frame}
 
-\begin{frame}{Example of estimation (continuation)} 
-
+\begin{frame}{Example of estimation in a classical population (continuation)} 
 This sampling strategy is just a formalization of the heuristic approach assuming that the frequency of cases of COVID-19 in the whole population is the same as in our uniformly random sample. This is not necessarily the case in reality, e.g., people working in hospitals have a higher probability of getting infested than the remain of the population.
 \end{frame}
 
@@ -120,7 +116,7 @@ $$
 B_{t,s}^{\delta} := \left\{ q\in\mathcal{A}^n: \quad \left| \omega\left(q_{\overline{t}}\right) - f\left(t, q_t, s\right) \right| <  \delta \right\},
 $$
 
-Heuristic idea: for $\delta$, $t$ and $s$ fixed, the larger the set $B_{t,s}^{\delta}$ is, the better the function $f$ is for estimation (with respect to $t$ and $s$).
+This is the set of states for which the estimation is fine up to the precision $\delta$.
 \end{frame}
 
 \begin{frame}{Example of set of classical $\delta$-close states} 
@@ -133,9 +129,6 @@ $$
 \textrm{Pr}\left[ B_{T,S}^{\delta} \in \Gamma \right] := \textrm{Pr}\left[ (T, S) \in \left\{(t,s)\in\mathcal{T}\times\mathcal{S} :\quad B_{t,s}^{\delta} \in \Gamma\right\} \right]
 $$
 where $\Gamma\subset 2^{\mathcal{A}^n}$. The call $B_{T,S}^{\delta}$ the \emph{random set of classical $\delta$-close states}.
-$\newline$
-
-Heuristic idea: for $\delta$ fixed, the ``larger" the random set $B_{T,S}^{\delta}$ is, the better the strategy is for estimation.
 \end{frame}
 
 \begin{frame}{Example of random set of classical $\delta$-close states} 
@@ -149,7 +142,7 @@ $$
 \varepsilon_c^{\delta} :=\max_{q\in\mathcal{A}^n} \textrm{Pr}\left[ B_{T,S}^{\delta} \in \left\{X\in 2^{\mathcal{A}^n}: \quad q \not\in X \right\}\right].
 $$
 
-Heuristic idea: $\varepsilon_c^{\delta}$ measures the probability that the sampling strategy fails in the worst-case scenario\footnote{Notice that the expression inside the bracket is equivalent to $q \not\in B_{T,S}^{\delta}$.}.
+$\varepsilon_c^{\delta}$ measures the probability that the sampling strategy fails in the worst-case scenario\footnote{Notice that the expression inside the bracket is equivalent to $q \not\in B_{T,S}^{\delta}$.}.
 \end{frame}
 
 \begin{frame}{Example of classical $\delta$-error} 
@@ -160,8 +153,6 @@ For $k \leq \frac{n}{2}$ (as it should be in practice), we have
 $$
 \varepsilon_c^{\delta} \leq 2 \exp\left( - \frac{\delta^2 k}{2} \right).
 $$
-
-Remark: As expected: a) as the size of the sample increases, the bound of the error $\varepsilon_c^{\delta}$ decrease; b) as the precision of the estimation increases, the bound of the error $\varepsilon_c^{\delta}$ increases.
 \end{frame}
 
 
@@ -172,17 +163,28 @@ Remark: As expected: a) as the size of the sample increases, the bound of the er
 \end{frame}
 
 \begin{frame}{What is a quantum population?} 
-In the context of the paper, a \emph{quantum population} is a quantum state from $\mathcal{H}_A \otimes \mathcal{H}_E$, where $\{|q\rangle\}_{q\in\mathcal{A}^n}$ is an orthonormal basis of the Hilbert space $\mathcal{H}_A$ and $\mathcal{H}_E$ is also a finite dimensional Hilbert space (environment).
+In the context of the paper, a \emph{quantum population} is a quantum state from $\mathcal{H}_A \otimes \mathcal{H}_E$, where $\{|q\rangle\}_{q\in\mathcal{A}^n}$ is an orthonormal basis of the Hilbert space $\mathcal{H}_A$ (populations as such) and $\mathcal{H}_E$ (environment) is also a finite dimensional Hilbert space.
 \end{frame}
 
 
 \begin{frame}{Example of quantum population} 
 Imagine that People's Republic of Wakanda isolated itself from the rest of the universe in such a way that information exchange with the exterior is no longer possible\footnote{This mental experiment is a variation of the famous Schr\"odinger's cat.}. Inside a lab of virology, there was an accident and some particles of the virus SARS-CoV-2 (associated to the illness COVID-19) escaped to the lab of physics. More precisely, the viral particles fall into a radioactive sample. If the radioactive sample decay, the radiation will kill the virus, but until then, all the physicists using the sample will get infected of COVID-19.
-$\newline$
-
-From the point of view of an outsider, the population of Wakanda will be a quantum population: the health state (infested or not) of the people will be entangled with the quantum state of the above-mentioned radioactive sample.
-
 \end{frame}
+
+\begin{frame}{Example of quantum population (continuation)} 
+From the point of view of an outsider, the population of Wakanda will be a quantum population: the health state (infested or not) of the people (population as such) will be entangled with the quantum state of the above-mentioned radioactive sample (environment).
+\end{frame}
+
+\begin{frame}{How to estimate in a quantum population?} 
+Given a sampling strategy $\left(P_T, P_S, f \right)$ and a quantum population $|\varphi_{AE}\rangle \in \mathcal{H}_A \otimes \mathcal{H}_E$. We take a random pair $(t, s) \in \mathcal{T} \times \mathcal{S}$ (using the joint distribution of $P_T$ and $P_S$). We apply the measurement of the system $A$ in the positions indexed by the elements of $t$. The result will be classical population $q_t$. By definition, we \emph{estimate} that  the post-measurement state of  $|\varphi_{AE}\rangle$, denoted $|\varphi_{A_{\overline{t}}E}\rangle$ is a superposition of states $\delta$-close to $f(t, q_t, s)$.
+\end{frame}
+
+
+\begin{frame}{Example of estimation in a classical population} 
+The equivalent of a measurement of the part $t$ of a quantum population is to ask for people corresponding to the numbers in $t$ to get out Wakanda (without destroying the quantum entanglement of the remaining population) and to be tested for COVID-19 outside. From this information, we should be able to estimate the frequency of people in the remaining quantum population of Wakanda (post-measurement state).
+\end{frame}
+
+
 
 \begin{frame}
 \begin{center}
