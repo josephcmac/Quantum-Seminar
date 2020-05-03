@@ -186,25 +186,39 @@ The equivalent of a measurement of the part $t$ of a quantum population is to as
 
 For any $|\varphi\rangle \in \mathcal{H}_A \otimes \mathcal{H}_E$, the \emph{$\delta$-fidelity} of the strategy at $(t,s)$, with respect to the environment $\mathcal{H}_E$, is 
 $$
-f_{t,s}^{\delta}\left( |\varphi\rangle \right) = \max_{| \psi \rangle \in \text{span}\left(B_{t,s}^{\delta}\right)\otimes \mathcal{H}_E}  | \langle \psi | \varphi \rangle |^2.
+f_{t,s}^{\delta}\left( |\varphi\rangle \right) = \sup_{| \psi \rangle \in \text{span}\left(B_{t,s}^{\delta}\right)\otimes \mathcal{H}_E}  | \langle \psi | \varphi \rangle |^2.
 $$
+
 \end{frame}
 
 \begin{frame}{Quantum $\delta$-error} 
 
 The \emph{quantum $\delta$-error} of a strategy is defined as
 $$
-\varepsilon_q^{\delta} :=\max_{\mathcal{H}_E} \max_{|\varphi_{AE}\rangle \in \mathcal{H}_A\otimes \mathcal{H}_E} \sum_{(t,s)\in\mathcal{T}\times\mathcal{S}} P_{T,S}(t,s) \sqrt{1 -  f_{t,s}^{\delta} \left(|\varphi_{AE}\rangle \right)}.
+\varepsilon_q^{\delta} :=\sup_{\mathcal{H}_E} \sup_{|\varphi_{AE}\rangle \in \mathcal{H}_A\otimes \mathcal{H}_E} \sum_{(t,s)\in\mathcal{T}\times\mathcal{S}} P_{T,S}(t,s) \sqrt{1 -  f_{t,s}^{\delta} \left(|\varphi_{AE}\rangle \right)}.
 $$
 \end{frame}
 
 
-\begin{frame}{Classical-Quantum inequality for $\delta$-error} 
-
+\begin{frame}{Classical-quantum inequality for $\delta$-error} 
+For any strategy and for any precision $\delta > 0$, we have
 $$
-\varepsilon_q^{\delta} \leq \sqrt{ \varepsilon_c^{\delta} }
+\varepsilon_q^{\delta} \leq \sqrt{ \varepsilon_c^{\delta} }.
 $$
+\end{frame}
 
+
+
+\begin{frame}{Example of application of the classical-quantum inequality for $\delta$-
+error} 
+The bound for the classical $\delta$-error for the strategy applied to the population of Wakanda
+$$
+\varepsilon_c^{\delta} \leq 2 \exp\left( - \frac{\delta^2 k}{2} \right), \quad \text{provided } k \leq \frac{n}{2},
+$$
+implies the following bound for the quantum $\delta$-error for the same strategy
+$$
+\varepsilon_q^{\delta} \leq \sqrt{2} \exp\left( - \frac{\delta^2 k}{4} \right), \quad \text{provided } k \leq \frac{n}{2}.
+$$
 \end{frame}
 
 \begin{frame}
