@@ -35,10 +35,11 @@ My presentation may differ in some points with respect of the presentation given
 \textbf{Contribution 1.} The authors introduce a framework in for \textit{sampling quantum population}.
 $\newline$
 
-\textbf{Contribution 2.} This framework is used in a new proof of the security of the \emph{quantum key distribution protocol BB84} (entanglement-based version).
+\textbf{Contribution 2.} This framework is used in a new proof of the security of the \emph{quantum key distribution protocol BB84} (entanglement-based version\footnote{This implies the security of the original BB84.}).
 $\newline$
 
-\textbf{Contribution 3.} This framework is used in a new proof of the security of the \emph{quantum oblivious-transfer from bit-commitment}.
+\textbf{Contribution 3.} This framework is used in a new proof of the security of the \emph{quantum oblivious-transfer from bit-commitment}\footnote{Because of constrains in time, we will focus on contributions 1 and 2. Contribution 3 will be let for those who are interested in reading the paper, because it is rather similar to contribution 2.}.
+
 
 \end{flushleft}
 \end{frame}
@@ -232,16 +233,75 @@ This framework is used in a new proof of the security of the \emph{quantum key d
 \end{flushleft}
 \end{frame}
 
-\begin{frame}
-\begin{center}
-\Large{\textbf{Presentation of Contribution 3.} }\normalsize
-$\newline$
-\end{center}
+\begin{frame}{Outline of the presentation of contribution 2}
 
-\begin{flushleft}
-This framework is used in a new proof of the security of the \emph{quantum oblivious-transfer from bit-commitment}.
-\end{flushleft}
+- We will present/recall the protocol BB84 (entanglement based).
+
+- We will present the formalization of the statement that this protocol is secure.
+
+- We will explain how the framework of sampling and estimating in a quantum population can be used in order to prove the security of this protocol.
+
+
 \end{frame}
+
+
+\begin{frame}{Entanglement based BB84 (outline)}
+\textbf{Step 1.} Qubit distribution.
+$\newline$
+
+\textbf{Step 2.} Error estimation.
+$\newline$
+
+\textbf{Step 3.} Error correction.
+$\newline$
+
+\textbf{Step 4.} Key distillation.
+
+\end{frame}
+
+
+\begin{frame}{Entanglement based BB84 (Step 1)}
+\textbf{Qubit distribution.} Alice prepares $n$ EPR pairs of the form $\frac{1}{\sqrt{2}}\left( |00\rangle + |11\rangle \right)$ and sends one qubit of each pair to Bob, who confirm the receipt of the qubits. Then, Alice picks random $\theta\in\{0,1\}^n$ and sends it to Bob, and Alice and Bob measure their respective qubits in basis $\theta$ to obtain $x$ on Alice's side respectively $y$ on Bob's side.
+\end{frame}
+
+
+\begin{frame}{Entanglement based BB84 (Step 2)}
+\textbf{Error estimation.} Alice chooses a random subset $s\subset [n]$ of size $k$ and sends it to Bob. Then Alice and Bob exchange $x_s$ and $y_s$ and compute $\beta := \omega \left( x_s \oplus y_s\right)$.
+\end{frame}
+
+\begin{frame}{Entanglement based BB84 (Step 3)}
+\textbf{Error correction.} Alice sends the syndrome $\text{syn}$ of $x_{\overline{s}}$ to Bob with respect to a suitable linear error correcting code. Bob uses $\text{syn}$ to correct the errors in $y_{\overline{s}}$ and obtains $\hat{x}_{\overline{s}}$. Let $m$ be the bit-size of $\text{syn}$
+\end{frame}
+
+\begin{frame}{Entanglement based BB84 (Step 4)}
+\textbf{Key distillation.} Alices chooses a random seed $r$ for a universal hash function $g$ with range $\{0, 1\}^{\ell}$, where $\ell$ satisfies $\ell < \left(1 - h(\beta)\right)n - k - m$ (or $\ell = 0$ if the right-hand side is not positive), and sends it to Bob. Then, Alice and Bob compute $k := g(r, x_{\overline{s}})$ and $\hat{k} := g(r, \hat{x}_{\overline{s}})$
+\end{frame}
+
+
+\begin{frame}{Security of BB84 (entanglement based)}
+\textbf{Theorem.} \emph{Consider an execution of BB84 (entanglement based) in the presence of an adversary Eve. Let $\mathbf{K}$ be the key obtained by Alice, and let $E$ be Eve's quantum system at the end of the protocol. Let $\mathbf{\tilde{K}}$ be chose uniformly at random of the same bit-length as $\mathbf{K}$. Then, for any $\delta$ with $\beta + \delta \leq \frac{1}{2}$, we have}
+
+$$
+\Delta\left(\rho_{\mathbf{K}, E}, \rho_{\mathbf{\tilde{K}}, E} \right) \leq \frac{1}{2}\cdot 2^{-\frac{1}{2}\left( (1 - h(\beta + \delta))n - k - m - \ell \right)} + 2 \exp\left( -\frac{1}{6}\delta^2 k\right).
+$$
+\end{frame}
+
+
+\begin{frame}{Sketch of the proof}
+
+\textbf{Idea 1.} The error estimation phase can be understood as applying a sampling and estimation strategy (described in contribution 1).
+$\newline$
+
+\textbf{Idea 2.} The state from which the raw key $x_{\overline{s}}$ is obtained is a superposition of states with bounded Hamming weight.
+$\newline$
+
+\textbf{Idea 3.} There is a lower bound of min-entropy for $x_{\overline{s}}$.
+$\newline$
+
+\textbf{Idea 4.} Apply privacy amplification in order to end the proof.
+
+\end{frame}
+
 
 \begin{frame}
 \begin{center}
