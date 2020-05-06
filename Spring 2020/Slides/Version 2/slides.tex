@@ -1,0 +1,60 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{mathtools}
+
+
+%Information to be included in the title page:
+\title{Presentation for the Quantum Seminar}
+\author{Jos\'e Manuel Rodr\'iguez Caballero}
+\institute{University of Tartu}
+\date{Spring 2020}
+
+
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Subject}
+My presentation is about the paper\footnote{I will not repeat the notation from the paper in this presentation. If someone needs a clarification, either read the paper or ask me during the presentation.}:
+$\newline$
+
+\begin{quote}
+Bouman, Niek J., and Serge Fehr. "Sampling in a quantum population, and applications." Annual Cryptology Conference. Springer, Berlin, Heidelberg, 2010.
+\end{quote}
+
+\end{frame}
+
+\begin{frame}{Modifications}
+My presentation may differ in some points with respect of the presentation given by the authors, not only because of my aesthetic preferences, but also because in some cases there are minor formal problems\footnote{There are trivial ways to solve these minor problems, but I do not find them elegant. I prefer a presentation without compromising the formalism too much.} in the paper, e.g., strictly speaking, definition 1 cannot be applied to what it supposed to be an example\footnote{Pairwise one-out-of-two sampling, using only part of the sample.} of it (I modified this definition in order to avoid this problem).
+
+\end{frame}
+
+
+\begin{frame}{Main definition}
+Let $\mathcal{I}$ be a finite set of indices, $\mathcal{S}$ be a finite set of seeds and $\mathcal{A}$ be a finite alphabet. Define $\mathcal{T} := 2^{\mathcal{I}}$. A \emph{sampling and estimation strategy} (a \emph{strategy} for short) is given by $\left(P_{TS}, f \right)$, where $P_{TS}$ is a probability distribution over $\mathcal{T} \times \mathcal{S}$ and $f$ is a real-valued function over 
+$$
+\text{Dom}_f := \bigcup_{(t, s)\in\mathcal{T}\times\mathcal{S}} \left\{ (t, q, s): \quad q \in \mathcal{A}^t \right\}.
+$$
+\end{frame}
+
+\begin{frame}{Main example}
+
+\textbf{Pairwise one-out-of-two sampling, using only part of the sample.} Let $\mathcal{I} := [n] \times \{0,1\}$ and $\mathcal{S} := \mathcal{T}$. The probability distribution $P_{TS}$ is given by 
+$$
+P_{TS}(t,s) = \frac{1}{2^n \left( \!\! \begin{array}{c} n \\ k \end{array} \!\! \right)}
+$$
+if for some $(j_1,...,j_n)\in \{0,1\}^n$ we have $t = \{(\ell, j_{\ell}): \quad 1 \leq \ell \leq n\}$, $|s| = k$ and $s \subset t$. Otherwise, $P_{TS}(t,s) := 0$.
+\end{frame}
+
+
+
+\begin{frame}
+\begin{center}
+\Large{\textbf{End of my presentation} }
+\end{center}
+\end{frame}
+
+\end{document}
