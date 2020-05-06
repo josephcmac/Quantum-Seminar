@@ -39,10 +39,15 @@ $\newline$
 $\newline$
 
 \textbf{Contribution 3.} This framework is used in a new proof of the security of the \emph{quantum oblivious-transfer from bit-commitment}\footnote{Because of constrains in time, we will focus on contributions 1 and 2. Contribution 3 will be let for those who are interested in reading the paper, because it is rather similar to contribution 2.}.
-
-
 \end{flushleft}
 \end{frame}
+
+\begin{frame}{Main idea of the paper}
+
+The \textbf{error estimation} in some quantum key distribution protocols can be understood as applying a \textbf{sampling and estimation strategy}.
+
+\end{frame}
+
 
 \begin{frame}
 \begin{center}
@@ -262,6 +267,10 @@ $\newline$
 
 \begin{frame}{Entanglement based BB84 (Step 1)}
 \textbf{Qubit distribution.} Alice prepares $n$ EPR pairs of the form $\frac{1}{\sqrt{2}}\left( |00\rangle + |11\rangle \right)$ and sends one qubit of each pair to Bob, who confirm the receipt of the qubits. Then, Alice picks random $\theta\in\{0,1\}^n$ and sends it to Bob, and Alice and Bob measure their respective qubits in basis $\theta$ to obtain $x$ on Alice's side respectively $y$ on Bob's side.
+$\newline$
+
+In the proof of security, the random variables corresponding to $\theta$, $x$ and $y$ will be denoted by their respective capital letters $\Theta$, $X$ and $Y$.
+
 \end{frame}
 
 
@@ -270,11 +279,11 @@ $\newline$
 \end{frame}
 
 \begin{frame}{Entanglement based BB84 (Step 3)}
-\textbf{Error correction.} Alice sends the syndrome $\text{syn}$ of $x_{\overline{s}}$ to Bob with respect to a suitable linear error correcting code. Bob uses $\text{syn}$ to correct the errors in $y_{\overline{s}}$ and obtains $\hat{x}_{\overline{s}}$. Let $m$ be the bit-size of $\text{syn}$
+\textbf{Error correction.} Alice sends the syndrome $\text{syn}$ of $x_{\overline{s}}$ to Bob with respect to a suitable linear error correcting code. Bob uses $\text{syn}$ to correct the errors in $y_{\overline{s}}$ and obtains $\hat{x}_{\overline{s}}$. Let $m$ be the bit-size of $\text{syn}$.
 \end{frame}
 
 \begin{frame}{Entanglement based BB84 (Step 4)}
-\textbf{Key distillation.} Alices chooses a random seed $r$ for a universal hash function $g$ with range $\{0, 1\}^{\ell}$, where $\ell$ satisfies $\ell < \left(1 - h(\beta)\right)n - k - m$ (or $\ell = 0$ if the right-hand side is not positive), and sends it to Bob. Then, Alice and Bob compute $k := g(r, x_{\overline{s}})$ and $\hat{k} := g(r, \hat{x}_{\overline{s}})$
+\textbf{Key distillation.} Let $h(\beta) := - \beta \log \beta - (1 - \beta) \log (1-\beta)$ be the binary entropy\footnote{The notation $\log$ stands for the binary logarithm.}. Alices chooses a random seed $r$ for a universal hash function $g$ with range $\{0, 1\}^{\ell}$, where $\ell$ satisfies $\ell < \left(1 - h(\beta)\right)n - k - m$ (or $\ell = 0$ if the right-hand side is not positive), and sends it to Bob. Then, Alice and Bob compute $k := g(r, x_{\overline{s}})$ and $\hat{k} := g(r, \hat{x}_{\overline{s}})$.
 \end{frame}
 
 
@@ -282,14 +291,14 @@ $\newline$
 \textbf{Theorem.} \emph{Consider an execution of BB84 (entanglement based) in the presence of an adversary Eve. Let $\mathbf{K}$ be the key obtained by Alice, and let $E$ be Eve's quantum system at the end of the protocol. Let $\mathbf{\tilde{K}}$ be chose uniformly at random of the same bit-length as $\mathbf{K}$. Then, for any $\delta$ with $\beta + \delta \leq \frac{1}{2}$, we have}
 
 $$
-\Delta\left(\rho_{\mathbf{K}, E}, \rho_{\mathbf{\tilde{K}}, E} \right) \leq \frac{1}{2}\cdot 2^{-\frac{1}{2}\left( (1 - h(\beta + \delta))n - k - m - \ell \right)} + 2 \exp\left( -\frac{1}{6}\delta^2 k\right).
+\Delta\left(\rho_{\mathbf{K} E}, \rho_{\mathbf{\tilde{K}} E} \right) \leq \frac{1}{2}\cdot 2^{-\frac{1}{2}\left( (1 - h(\beta + \delta))n - k - m - \ell \right)} + 2 \exp\left( -\frac{1}{6}\delta^2 k\right).
 $$
 \end{frame}
 
 
 \begin{frame}{Sketch of the proof}
 
-\textbf{Idea 1.} The error estimation phase can be understood as applying a sampling and estimation strategy (described in contribution 1).
+\textbf{Idea 1.} The error estimation (step 2) in the protocol can be understood as applying a sampling and estimation strategy (described in contribution 1).
 $\newline$
 
 \textbf{Idea 2.} The state from which the raw key $x_{\overline{s}}$ is obtained is a superposition of states with bounded Hamming weight.
@@ -299,7 +308,37 @@ $\newline$
 $\newline$
 
 \textbf{Idea 4.} Apply privacy amplification in order to end the proof.
+$\newline$
 
+Ideas 2, 3 and 4 are standard techniques in quantum cryptography. So, we will focus on idea 1, which is the only one related to the contributions of the paper.
+
+\end{frame}
+
+\begin{frame}{Idea 1}
+The error estimation (step 2) in the protocol is replaced by the following sampling and estimation strategy. $\newline$
+
+Let $| \psi_{A B E_0} \rangle$ be the state of Alice, Bob and Eve right after the quantum communication in the qubit distribution.
+The $\texttt{CNOT}$ transformation is applied to every qubit pair $A_i B_i$ within $|\psi_{A B E_0}\rangle$ for $i\in[n]$, such that the state $$| \varphi_{A B E_0} \rangle = \left(U^{\otimes n}_{\text{CNOT}} \otimes \mathbb{I}_{E_0} \right) | \psi_{A B E_0} \rangle$$is obtained.
+\end{frame}
+
+\begin{frame}{Idea 1 (continuation)}
+ For any $i\in[n]$, the qubit pair $A_i B_i$ of the transformed state is measured and if $\Theta_i = 0$ then the output bits are denoted $W_i$ and $Z_i$, else they are denoted $Z_i$ and $W_i$. $\newline$
+
+
+Notice that, given $\Theta$, from  $W$ and $Z$, we can recover $X$ and $Y$ and conversely.
+\end{frame}
+
+\begin{frame}{Idea 1 (continuation)}
+We assume that first the qubits that lead to the $Z_i$'s are measured and only at some later point (after step 2 in the original protocol) the qubits leading to the $W_i$'s are measured.
+\end{frame}
+
+
+\begin{frame}{Idea 1 (continuation)}
+
+Thus, the error estimation is reduced to the following strategy, known as \emph{pairwise one-out-of-two sampling}\footnote{It is easy to check that it can be reformulated according to our general definition of strategy.}. 
+$\newline$
+
+Consider the index set from which the subset $t$ is chosen to be $[n]\times\{0,1\}$. Assume that $t$ is chosen as $t = \{(1, j_1),...,(n, j_n)\}$, where every $j_k$ is picked independently at random in $\{0,1\}$. Furthermore, $s$ is a random subset of $t$ of size $k$. We define $f(t, q_t, s) = \omega(q_s)$.
 \end{frame}
 
 
