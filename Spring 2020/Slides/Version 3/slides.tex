@@ -1,0 +1,137 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+
+
+%Information to be included in the title page:
+\title{Presentation for the Quantum Seminar}
+\author{Jos\'e Manuel Rodr\'iguez Caballero}
+\institute{University of Tartu}
+\date{Spring 2020}
+
+
+
+\begin{document}
+
+\frame{\titlepage}
+
+
+
+\begin{frame}{Subject}
+My presentation is about the paper\footnote{I will not repeat the notation from the paper in this presentation. If someone needs a clarification, please, either ask me during the presentation or read Bouman-Fehr paper.}:
+$\newline$
+
+\begin{quote}
+Bouman, Niek J., and Serge Fehr. "Sampling in a quantum population, and applications." Annual Cryptology Conference. Springer, Berlin, Heidelberg, 2010.
+URL = \url{https://arxiv.org/pdf/0907.4246.pdf}
+\end{quote}
+\end{frame}
+
+
+\begin{frame}{Outline}
+The main contributions of Bouman-Fehr paper are the following.
+
+\begin{enumerate}[label=(\Roman*)]
+\item Introduction of a theory of \emph{sampling and estimate strategies} for classical and quantum populations.
+\item A new proof of the security of the protocol for quantum key distribution BB84 (and a version of it).
+\item A new proof of the security of the protocol Quantum Oblivious Transfer\footnote{We consider that (i) and (ii) are enough in order to understand the technique developed Bouman-Fehr paper. So, we will omit (iii) in this presentation because of time constrains.} (QOT).
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Brief History}
+\begin{enumerate}[label=(\roman*)]
+\item The protocol BB84 developed by Charles Bennett and Gilles Brassard\footnote{C. H. Bennett and G. Brassard, “Quantum cryptography: Public-key distribution and coin tossing,” in Proceedings of IEEE International Conference on Computers,
+Systems and Signal Processing, Bangalore, India, 1984,
+(IEEE Press, 1984), pp. 175–179} in 1984, was the first quantum key distribution protocol.
+\item An entanglement-based version of BB84 was proposed by Artur K. Ekert\footnote{Artur K. Ekert. Quantum cryptography based on Bell's theorem. Physical Review Letter,
+67(6):661–663, August 1991.} in 1991. The security of this version of BB84 implies the security of the original protocol.
+\item The first security proof of BB84 was published by Dominic Mayers\footnote{Mayers, D. 1996. Quantum key distribution and string oblivious transfer in noisy channels.
+Advances in Cryptology--Proceedings of Crypto '96 (Aug.). Springer-Verlag, New York, pp. 343–357} in 1996.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Description}
+Let $n \geq 2$ and $1 \leq k \leq \frac{n}{2}$ be the integer parameters of the following protocol. The entanglement-based BB84 protocol can be divided into the following steps\footnote{The explanation of each step will be developed in the next slides}. $\newline$
+
+\begin{enumerate}[label=(\roman*)]
+\item Qubit distribution.
+\item Error estimation.
+\item Error correction.
+\item Key distillation.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Qubit distribution}
+
+\begin{enumerate}[label=(\roman*)]
+\item Alice prepare $n$ EPR pairs $\frac{1}{\sqrt{2}}\left( |00\rangle + |11\rangle \right)$.
+\item Alice sends one qubit  for each pair to Bob.
+\item Bob confirms the receipt of the qubits.
+\item Alice picks random $\theta\in\{0,1\}^n$ and send it to Bob.
+\item Alice and Bob measure their respective qubits in basis $\theta$ ($0$ for computational, $1$ for Hadamard) and the results of the measurements are registered in $x$ and $y$ respectively.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Error estimation}
+\begin{enumerate}[label=(\roman*)]
+\item Alice chooses a random subset $s \subset [n]$ of size $k$ and send it to Bob.
+\item Alice and Bob exchange $x_s$ and $y_s$.
+\item Alice and Bob both compute $\omega\left( x_s \oplus y_s\right)$.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Error correction}
+\begin{enumerate}[label=(\roman*)]
+\item Alice send the syndrome $\textbf{syn}$ of $x_{\overline{s}}$ to Bob with respect to a suitable linear error correcting code. Let $m$ be the bit-size of $\textbf{syn}$.
+\item Bob uses $\textbf{syn}$ to correct the errors in $y_{\overline{s}}$ and obtains  $\hat{x}_{\overline{s}}$.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Key distillation}
+\begin{enumerate}[label=(\roman*)]
+\item Alice chooses a random seed $r$ for a universal hash function $g$ with range $\{0,1\}^{\ell}$, where $\ell < \left(1 - h(\beta)\right) n - k - m$ (or $\ell = 0$ if the right-hand side is not positive).
+\item Alice sends $r$ to Bob.
+\item Alice and Bob compute their keys $\mathbf{k} := g(r, x_{\overline{s}})$ and $\mathbf{\hat{k}} := g(r, \hat{x}_{\overline{s}})$.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Security claim (statement)}
+
+Consider an execution of the entanglement-based BB84 in the presence of an adversary Eve. Let $\mathbf{K}$ be the key obtained by Alice, and let $E$ be Eve's quantum system at the end of the protocol. Let $\mathbf{\tilde{K}}$ be chosen uniformly at random of the same bit-length as $\mathbf{K}$. Then, for any $0 < \delta \leq \frac{1}{2}-\beta$, the inequality
+\begin{eqnarray*}
+\Delta\left( \rho_{\mathbf{K}E}, \rho_{\mathbf{\tilde{K}}E} \right) &\leq& \frac{1}{2} \cdot \exp\left[ -\frac{\ln 2}{2} \bigg( (1 - h(\beta+\delta))n - k - m - \ell \bigg) \right] \\
+& & + 2\exp\left( -\frac{\delta^2 k}{6} \right)
+\end{eqnarray*}
+holds.
+
+\end{frame}
+
+\begin{frame}{Security claim (application)}
+Let  $\varepsilon > 0$. The security claim can be used in order compute a possible value for $\ell$ such that $\Delta\left( \rho_{\mathbf{K}E}, \rho_{\mathbf{\tilde{K}}E} \right) \leq \varepsilon$.
+\end{frame}
+
+\begin{frame}{Sketch of the proof}
+There is a quantum state 
+$$\rho = \sum_{\scalebox{0.5}{$\begin{array}{c} b\in\{0,1\}^n \\ |\omega(b) - \beta|\leq \delta \end{array}$}} |b\rangle |\varphi_E^b\rangle$$satisfying
+\begin{enumerate}[label=(\roman*)]
+\item Quantum error inequality: $$\Delta\left( \rho_{\mathbf{K}E}, \rho \right) \leq 2\exp\left( -\frac{\delta^2 k}{6} \right).$$
+\item Privacy amplification: $$\Delta\left(\rho, \rho_{\mathbf{\tilde{K}}E} \right) \leq \exp\left[ -\frac{\ln 2}{2} \bigg( (1 - h(\beta+\delta))n - k - m - \ell \bigg) \right].$$
+\end{enumerate}
+
+Applying triangular inequality we get the desired result.
+\end{frame}
+
+
+
+\begin{frame}
+\begin{center}
+\Large{\textbf{End of my presentation} }
+\end{center}
+\end{frame}
+
+\end{document}
