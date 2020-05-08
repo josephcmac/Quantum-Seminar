@@ -79,7 +79,7 @@ Let $n \geq 2$ and $1 \leq k \leq \frac{n}{2}$ be the integer parameters of the 
 \begin{enumerate}[label=(\roman*)]
 \item Alice chooses a random subset $s \subset [n]$ of size $k$ and send it to Bob.
 \item Alice and Bob exchange $x_s$ and $y_s$.
-\item Alice and Bob both compute $\omega\left( x_s \oplus y_s\right)$.
+\item Alice and Bob both compute $\beta := \omega\left( x_s \oplus y_s\right)$.
 \end{enumerate}
 \end{frame}
 
@@ -145,31 +145,98 @@ $$
 if for some $(j_1,...,j_n)\in \{0,1\}^n$ we have $t = \{(\ell, j_{\ell}): \quad 1 \leq \ell \leq n\}$, $|s| = k$ and $s \subset t$. Otherwise, $P_{TS}(t,s) := 0$. Furthermore, $f(t, q, s) := \omega(q_s)$.
 \end{frame}
 
+\begin{frame}{Classical error}
+The \emph{classical error} of a strategy $\Psi$ is the function $\varepsilon_c:(0,+\infty) \longrightarrow \mathbb{R}: \delta \mapsto \varepsilon_c^{\delta}$ given by
+$$
+\varepsilon_c^{\delta} := \max_{q\in \mathcal{A}^{\mathcal{I}}} \text{Pr}\left( \left| q_{\overline{T}} - f\left(T, q_T, S \right) \right| \geq \delta  \right),
+$$
+where $(T, S)$ is a random variable associated to the probability distribution $P_{TS}$.
+\end{frame}
+
+
+\begin{frame}{Maximum fidelity} 
+
+Let $|\varphi_{AE}\rangle$ be a bipartite pure quantum state corresponding to Alice and Eve. We define \emph{maximum fidelity} as
+$$
+f_{t,s}^{\delta}\left( |\varphi\rangle \right) := \sup_{\psi}  | \langle \psi | \varphi \rangle |^2,
+$$
+where the supremum is over all bipartite states of Alice and Eve $| \psi \rangle = \sum_{q} \alpha_q |q\rangle \otimes |\psi_E^{q}\rangle$, and the summation is for all $q\in \mathcal{A}^{\mathcal{I}}$ satisfying $\left| \omega(q_{\overline{t}}) - f(t, q_t, s) \right| < \delta$.
+\end{frame}
+
+\begin{frame}{Quantum error} 
+
+The \emph{quantum error} of a strategy $\Psi$ is the function $\varepsilon_q:(0,+\infty) \longrightarrow \mathbb{R}: \delta \mapsto \varepsilon_q^{\delta}$ given by
+$$
+\varepsilon_q^{\delta} :=\sup_{E} \sup_{\varphi_{AE}} \sum_{(t,s)\in\mathcal{T}\times\mathcal{S}} P_{T,S}(t,s) \sqrt{1 -  f_{t,s}^{\delta} \left(|\varphi_{AE}\rangle \right)},
+$$
+where the first supremum (from left to right) is over all adversaries Eve and the second supremum is over all bipartite quantum states between Alice and Eve.
+\end{frame}
+
 \begin{frame}{Existence of $\rho_{\beta,\delta}$ and quantum error (sketch)}
 \begin{enumerate}[label=(\roman*)]
-\item The error estimation phase in the protocol is interpreted as strategy $\Psi_{n,k}$. 
+\item The error estimation phase in the protocol is interpreted as strategy $\Psi_{n,k}$. We will explain how in the next slide.
 \item The classical error of the strategy is bounded above by $4\exp\left( -\frac{\delta^2 k}{3} \right)$ using well-known techniques from probability theory (Hoeffding's inequality).
 \item The quantum error of the strategy is bounded above by the square root of the classical error of the strategy, i.e., $2\exp\left( -\frac{\delta^2 k}{6} \right)$.
-\item According to the definition of the quantum error, there exists a state $\rho_{\beta,\delta}$, which is a superposition of states having relative Hamming weight\footnote{The basis from which the Hamming weight is taken are the Hadamard basis for Alice and the computational
-basis for Bob.} $\delta$-close to $\beta$, for which $\Delta\left( \rho_{\mathbf{K}E}, \rho_{\beta,\delta} \right)$ is bounded above by the quantum error, \emph{a fortiori} by $2\exp\left( -\frac{\delta^2 k}{6} \right)$.
+\item According to the definition of the quantum error and the way in which the key is constructed, there is some
+$\rho_{\beta,\delta} = \sum_{q} \alpha_q |q\rangle \otimes |\psi_E^{q}\rangle$ (the summation is for all $q\in \{0,1\}^{\mathcal{T}}$ satisfying\footnote{The basis from which the Hamming weight is taken are the Hadamard basis for Alice and the computational
+basis for Bob.} $\left| \omega(q) - \beta \right| < \delta$) for which $\Delta\left( \rho_{\mathbf{K}E}, \rho_{\beta,\delta} \right)$ is bounded above by the quantum error, \emph{a fortiori} by $2\exp\left( -\frac{\delta^2 k}{6} \right)$.
 \end{enumerate}
 \end{frame}
 
-\begin{frame}{Privacy amplification (sketch)}
-\begin{enumerate}[label=(\roman*)]
-\item The fact that $\rho_{\beta,\delta}$ is a superposition of states having relative Hamming weight $\delta$-close to $\beta$ implies the inequality
+\begin{frame}{Error estimation as a strategy}
+Let $|\psi_{ABE_0} \rangle$ be the quantum state of Alice, Bob and Eve immediately after the qubit distribution phase. Apply a CNOT gate to any pair $A_i B_i$ of qubits in $|\psi_{ABE_0} \rangle$ and in order to have $|\varphi_{ABE_0} \rangle := (U_{\text{CNOT}}^{\otimes n} \otimes I_E) |\psi_{ABE_0} \rangle$. Take a uniformly random $\Theta \in \{0,1\}^n$. For each $i\in[n]$, if $\Theta_i = 0$, then measure $i$-th qubit of Bob in the computational basis, else measure the $i$-th qubit of Alice in the Hadamard basis, and assign the bit obtained in this way to the variable $Z_i$. Now, choose a uniformly random $S \subseteq [n]$ of size $k$. 
+\end{frame}
+
+\begin{frame}{Error estimation as a strategy (continuation)}
+In virtue of the definition of the CNOT, we have $Z = X \oplus Y$. Notice that the estimation of the relative Hamming weight of the post-measurement state\footnote{The basis from which the Hamming weight is taken are the Hadamard basis for Alice and the computational
+basis for Bob.} by $\beta = \omega(Z_S)$ corresponds, by definition, to the strategy $\Psi_{n,k}$.
+\end{frame}
+
+\begin{frame}{Simplification}
+We have already taken into account the fact that after obtaining $Z$ from $|\varphi_{A B E_0}\rangle$, the post-measurement state is $2\exp\left( -\frac{\delta^2 k}{6} \right)$-close to $\rho_{\beta,\delta}$. So, in order to simplify the proof of the privacy amplification inequality (in the security proof), we will suppose from now on, without lost of generality, that the post-measurement state is exactly $\rho_{\beta,\delta}$. This assumption is justified by the triangular inequality.
+\end{frame}
+
+\begin{frame}{Obtaining of $W$}
+After obtaining $Z$ from $|\varphi_{A B E_0}\rangle$, we measure the post-measurement state $\rho_{\beta,\delta}$ with respect to $\Theta$ in order to get $W$, but using opposite basis as we did with $Z$, i.e., now we use the computational basis for Alice and the Hadamard basis for Bob.
+\end{frame}
+
+\begin{frame}{Connection between $(X,Y)$ and $(W, Z)$}
+Notice that
+
+$$
+W_i := \left\{\begin{array}{l l} X_i & \text{if } \Theta_i = 0, \\
+Y_i & \text{if } \Theta_i = 1.
+ \end{array} \right.
+$$
+
+Hence, given $\Theta$, the pair $X$ and $Y$ can be transformed in a bijective way into the pair $W$ and $Z$.
+\end{frame}
+
+
+\begin{frame}{Conditional min-entropy of $W$}
+The fact that $\rho_{\beta,\delta}$ is a superposition of states having relative Hamming weight $\delta$-close to $\beta$ implies the inequality\footnote{The presence of the binary entropy $h(\beta + \delta)$ is because of the inequality
+$$
+\left| \left\{ q\in\{0,1\}^{\mathcal{I}} : \left| \omega(q_{\overline{t}}) - f(t, q_t, s) \right| < \delta \right\}\right| \leq 2^{h(\beta + \delta) n}.
+$$}
 $$
 H_{\min}(W|\Theta \, Z \, S \, E_0) \geq \left(1 - h(\beta + \delta) \right) n.
 $$
-\item Applying the chain rule to the inequality above, we get
+\end{frame}
+
+\begin{frame}{Chain rule}
+Applying the chain rule to the inequality above, we get
 $$
 H_{\min}(X_{\overline{S}}|\Theta \, Z \, X_S \, \textbf{SYN} \, E_0) \geq \left(1 - h(\beta + \delta) \right) n - k - m.
 $$
+\end{frame}
 
-\item In virtue of the privacy amplification inequality, $\Delta\left(\rho_{\beta,\delta}, \rho_{\mathbf{\tilde{K}}E} \right) \leq \frac{1}{2}\cdot 2^{\left(H_{\min}(X_{\overline{S}}|\Theta \, Z \, X_S \, \textbf{SYN} \, E_0) - \ell \right)/2}$.
-\end{enumerate}
 
-From (ii) and (iii) we conclude the desired inequality.
+\begin{frame}{Privacy amplification (sketch)}
+In virtue of the privacy amplification inequality, $\Delta\left(\rho_{\beta,\delta}, \rho_{\mathbf{\tilde{K}}E} \right) \leq \frac{1}{2}\cdot 2^{\left(H_{\min}(X_{\overline{S}}|\Theta \, Z \, X_S \, \textbf{SYN} \, E_0) - \ell \right)/2}$.
+$\newline$
+
+Using the inequality from the previous slide, we conclude the security proof,
+$$\Delta\left(\rho_{\beta,\delta}, \rho_{\mathbf{\tilde{K}}E} \right) \leq \frac{1}{2} \exp\left[ -\frac{\ln 2}{2} \bigg( (1 - h(\beta+\delta))n - k - m - \ell \bigg) \right].$$
 \end{frame}
 
 \begin{frame}
